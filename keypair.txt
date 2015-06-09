@@ -1,0 +1,13 @@
+pwd
+ssh-keygen -t rsa
+//put your name test.pem and press enter twice to put no password
+
+ls // you will see test.pem test.pem.pub
+pwd
+cat test.pem.pub >> .ssh/authorized_keys
+cd .ssh
+ls
+//authorized_keys
+cat authrized_keys
+
+//Done and copy your private key to generete public key via putty
