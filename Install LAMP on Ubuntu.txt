@@ -1,0 +1,292 @@
+First things first: update
+sudo apt-get update && sudo apt-get upgrade
+LAMP Stack (Apache, Mysql, PHP)
+This will install the LAMP stack in one command
+
+sudo apt-get install lamp-server^
+Apache
+sudo apt-get install apache2 libapache2-mod-php5
+MySQL
+sudo apt-get install mysql-server mysql-client
+PHP 5
+Want a more recent version of PHP 5 for Ubuntu? Then use the PPA for PHP5 offered by Ondřej Surý. PHP 5.4+
+
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:ondrej/php5-oldstable
+sudo apt-get update
+sudo apt-get install php5 php5-gd php5-mysql php5-curl php5-cli php5-cgi php5-dev php5-fpm
+PHP 5.5+ note: there are significant differences between PHP 5.4. and PHP 5.5!
+
+sudo add-apt-repository ppa:ondrej/php5
+sudo apt-get update
+sudo apt-get install php5 php5-gd php5-mysql php5-curl php5-cli php5-cgi php5-dev
+NGINX
+NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server.
+
+sudo apt-get install nginx
+NGINX doesn’t start on its own, so:
+
+sudo service nginx start
+Learn about configuring NGINX as a front-end proxy with Apache
+
+phpMyAdmin
+phpMyAdmin allows you to manage your MySQL Database via web browser.
+
+sudo apt-get install phpmyadmin
+Choose Apache and then YES for dbconfig-common. If you ever need to edit phpMyAdmin config:
+
+sudo nano /etc/dbconfig-common/phpmyadmin.conf
+Webmin
+Webmin is an open-source server management tool much like cPanel.
+
+sudo nano /etc/apt/sources.list
+Scroll to the bottom and paste the following lines then save:
+
+deb http://download.webmin.com/download/repository sarge contrib
+deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib
+Import the key
+
+wget http://www.webmin.com/jcameron-key.asc
+sudo apt-key add jcameron-key.asc
+Update the sources list
+
+sudo apt-get update
+Run the install
+
+sudo apt-get install webmin
+Start Webmin
+
+sudo /etc/webmin/start
+When it’s finished, open Firefox or Chrome and type:
+
+http://localhost:10000/ (or if on a network) http://your-server-ip:10000/
+If you’ve installed a fresh copy of Ubuntu (or if you don’t know your password) you can set a new one:
+
+sudo passwd ubuntu
+You’ll be prompted to enter your new password twice. Now, you can login to Webmin.
+
+ProFTPd
+ProFTPd is a high-performance FTP server.
+
+sudo apt-get install proftpd
+(I always select “standalone”) Turn on Passive FTP via Webmin: Servers –> ProFTPD server –> Virtual Servers –> Default Server –> Networking Options
+
+Masquerade as address = your-server-outside-ip
+PASV Port Range: 1024-1088
+Sendmail
+sudo apt-get install sendmail
+PostFix Mail
+sudo apt-get install postfix
+Select “Internet Site” and then enter the domain name you want the Reverse DNS entry to be. BTW: To avoid your server being blacklisted, get a reverse DNS entry!
+
+Alternative PHP Cache (APC)
+APC is a PHP opcode cacher and works by caching PHP objects, functions, and database queries into your server’s RAM. If you run a WordPress website – then it takes full advantage of APC out-of-the-box. See my post on The Perfect APC Configuration Note, APC is no longer available in PHP 5.5+ as it’s now called OPCACHE.
+
+sudo apt-get install php-apc
+By default, Ubuntu will install this from a repository which has an outdated version. To install the latest version of APC:
+
+sudo apt-get install make
+sudo apt-get install libpcre3-dev
+sudo apt-get install php-pear
+sudo pecl install apc
+sudo /etc/init.d/apache2 restart
+Uninstall APC
+
+sudo pecl uninstall apc
+Memcached
+Memcached is a high-performance, distributed memory object caching system. However, it can work together with multiple servers (unlike APC).
+
+sudo apt-get install memcached
+sudo apt-get install php-pear
+sudo pecl install memcache
+Check to see if Memcached is running
+
+ps aux | grep memcached
+Fail2Ban
+Fail2Ban scans log files (e.g. /var/log/apache/error_log) and automatically bans IPs that show malicious signs for exploits.
+
+sudo apt-get install fail2ban
+RSYNC
+RSYNC is a open source utility that provides fast incremental file transfer.
+
+sudo apt-get install rsync
+Server-to-server transfers with RSYNC
+
+rsync -zvr /path/to/local/folder user@server.com:path/to/remove/folder
+ImageMagick
+ImageMagick is a software suite to create, edit, compose, or convert bitmap images.
+
+sudo apt-get install imagemagick
+Icecast2
+Icecast is a streaming audio server. If you ever wanted to have your own web radio station (like Shoutcast) this is the software.
+
+sudo apt-get install icecast2
+Configure Icecast2. Mainly, setting up your passwords and default port.
+
+sudo nano /etc/icecast2/icecast.xml
+Enable init.d script. Scroll to the bottom and change enable=true
+
+sudo nano /etc/default/icecast2/
+Start icecast2
+
+sudo /etc/init.d/icecast2 start
+If you left the default port as 8000 then you can view your Icecast2 Server
+
+http://your-server.com:8000/
+Munin
+Munin is a networked resource monitoring tool that can help analyze resource trends and “what just happened to kill our performance?” problems.
+
+sudo apt-get install php-cli
+Now, this is a single server setup, so let’s install munin and munin-node
+
+sudo apt-get install munin munin-node
+Configure Munin:
+
+sudo nano /etc/munin/munin.conf
+The first thing you should see is the operating directories. We need to change one of them:
+
+# dbdir   /var/lib/munin
+# htmldir /var/cache/munin/www
+# logdir /var/log/munin
+# rundir  /var/run/munin
+to
+
+# dbdir   /var/lib/munin
+htmldir /var/www/munin
+# logdir /var/log/munin
+# rundir  /var/run/munin
+Now let’s edit apache.conf
+
+sudo nano /etc/munin/apache.conf
+Delete everything inside apache.conf  and just add:
+
+Alias /munin /var/www/munin
+Move the web files to /var/www/munin
+
+sudo mv /var/cache/munin/www/ /var/www/munin
+Set permissions
+
+sudo chown munin.munin -R /var/www/munin
+Restart Munin
+
+sudo /etc/init.d/munin-node restart
+Finally, restart Apache
+
+sudo /etc/init.d/apache2 restart
+http://your-server.com/munin
+
+Cacti
+Cacti graphical server monitor provides a fast poller, advanced graph templating, multiple data acquisition methods, and user management features out of the box.
+
+sudo apt-get install cacti-spine
+Choose YES for dbconfig-common and Apache2. When finished you need to configure:
+
+http://your-server-ip-address/cacti
+Default user & pass: admin / admin Remove cacti
+
+sudo apt-get remove cacti
+BMON
+bmon is a bandwidth monitor capable of retrieving statistics from various input modules.
+
+sudo apt-get install bmon
+When it’s finished installing:
+
+bmon
+Zip and Unzip
+In my experience ZIP is great for creating archives for sharing via email or ftp. It’s a universal format that almost everyone can open. I would NOT use ZIP for file backups. For large backups, see 7ZIP or TAR below.
+
+sudo apt-get install zip
+Zip up a folder:
+
+zip uploads-backup.zip /wp-content/uploads
+Unzip (extract) an archive:
+
+unzip uploads-backup.zip /wp-content/uploads
+7ZIP
+7ZIP is a very popular archiving program with excellent compression. Plus, it’s open source and supports multiple operating systems.
+
+sudo apt-get install p7zip
+Create an archive
+
+7za a uploads-backup.7z /wp-content/uploads
+Extract an archive
+
+7za e uploads-backup.7z /wp-content/uploads
+TAR (Tape Archive)
+TAR –  is the prefered way to handle large file backups. I’ve read, the maximum allowed file size only depends on your hard drive. A disk formated with FAT32 for example, only allows 2GB. You can also compress TAR using GZIP or BZ2.
+
+tar -cvf uploads-backup.tar /wp-content/uploads
+GZIP – good compression, is very fast. Note: .tar.gz and .tgz are the same:
+
+tar -cvzf uploads-backup.tgz /wp-content/uploads
+BZ2 – excellent compression, but slower. I find BZ2 works best if you’re archiving a smaller directory. Note: .tar.bz2 and .tbz are the same:
+
+tar -cvfj plugins-backup.tbz /wp-content/plugins
+Untar (extract) an archive:
+
+tar -xvf uploads-backup.tar /wp-content/uploads
+Other handy commands:
+Download files
+
+wget http://example.com/wp-content/uploads/uploads-backup.tar
+Server-to-server transfers with SCP
+
+scp -P 22 -r user@remote-server.com:path/to/remote/folder path/to/local/folder
+Server-to-server transfer with SCP into the current directory
+
+scp -P 22 -r user@remote-server.com:path/to/remote/folder .
+Read more about SCP
+
+Set a password
+sudo passwd ubuntu
+Edit PHP.ini
+
+sudo nano /etc/php5/apache2/php.ini
+Restart Apache
+
+sudo /etc/init.d/apache2 restart
+Set Recursive Permissions for your websites direcotry
+
+sudo chmod -R 775 /var/www/
+cd /var/www/ sudo chmod -R www-data:www-data FOLDER NAME
+Block IP address using IPTABLES
+Single IP
+
+sudo iptables -I INPUT -s 192.168.100.1 -j DROP
+IP Range
+
+sudo iptables -I INPUT -s 192.168.100.0/24 -j DROP
+You can also manage IPTABLES (e.g., the linux firewall) via Webmin under Networking -> Linux Firewall
+
+Manage packages
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get autoremove
+Remove LAMP
+sudo apt-get purge libapache2-mod-auth-mysql phpmyadmin
+sudo apt-get purge mysql-server mysql-server-5.1 mysql-server-core-5.1
+sudo apt-get purge apache2 apache2-mpm-prefork apache2-utils apache2.2-bin apache2.2-common libapache2-mod-php5
+sudo apt-get autoremove
+Serve your websites from an EBS volume
+This practice has saved my butt on more than one occasion. Rather than use the given storage attached to the EC2 instance, I always create a 1TB EBS volume and mount it as /public_html/. That way, if your EC2 instance crashes…you’re web site files will not. For this, we’ll assume our attached EBS volume is /xvdf/.
+
+Check out the official documentation from Amazon AWS
+
+First you must be logged in as root:
+
+su
+Make sure you’re in the file system root:
+
+cd
+Now, let’s list all the attached drives. You should see /dev/xvda1, /dev/xvdb, /dev/xvdf/ etc…
+
+sudo fdisk -l
+Let’s make a directory (such as /public_html/)
+
+mkdir /public_html/
+Finally, let’s mount our EBS volume:
+
+mount -t ext4 /dev/xvdf /public_html/
+Now you can serve your websites from an EBS volume!
+
+Benchmark the CPU
+time for i in {0..10000}; do for j in {0..1000}; do :; done; done
