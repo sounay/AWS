@@ -5,3 +5,26 @@ rm -rf wordpress/
 
 #make ownership
 sudo chown -R ubuntu:www-data *
+
+mkdir /var/www/html/wp-content/uploads
+
+
+sudo nano /etc/apache2/sites-available/000-default.conf
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+    ServerName server_domain_name_or_IP
+    <Directory /var/www/html/>
+        AllowOverride All
+    </Directory>
+    . . .
+    
+    
+    
+sudo a2enmod rewrite
+sudo service apache2 restart
+touch /var/www/html/.htaccess
+sudo chown :www-data /var/www/html/.htaccess
+chmod 664 /var/www/html/.htaccess
+
