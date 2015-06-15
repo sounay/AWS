@@ -28,3 +28,4 @@ touch /var/www/html/.htaccess
 sudo chown :www-data /var/www/html/.htaccess
 chmod 664 /var/www/html/.htaccess
 
+sudo chown -R www-data /var/www
