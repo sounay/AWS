@@ -1,3 +1,7 @@
 File Permission
 sudo chmod -R 777 /var/www
 sudo chmod -R 777 /etc/phpmyadmin/config.inc.php
+
+
+Change phpmyadmin password
+sudo nano /etc/phpmyadmin/config-db.php
