@@ -1,0 +1,7 @@
+wget http://wordpress.org/latest.tar.gz
+tar -xzvf latest.tar.gz 
+mv wordpress/* ./
+rm -rf wordpress/
+
+#make ownership
+sudo chown -R ubuntu:www-data *
