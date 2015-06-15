@@ -5,3 +5,5 @@ sudo chmod -R 777 /etc/phpmyadmin/config.inc.php
 
 Change phpmyadmin password
 sudo nano /etc/phpmyadmin/config-db.php
+sudo restart mysql
+sudo service apache2 restart
