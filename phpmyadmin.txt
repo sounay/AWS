@@ -35,4 +35,21 @@ sudo nano /etc/phpmyadmin/apache.conf
 Alias /whateveryouwant /usr/share/phpmyadmin
 
 ##### Secure layer login for PHPMYADMIN ####
-https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-14-04
+sudo nano /etc/phpmyadmin/apache.conf
+
+<Directory /usr/share/phpmyadmin>
+    Options FollowSymLinks
+    DirectoryIndex index.php
+    AllowOverride All
+    . . .
+    
+  sudo service apache2 restart
+  sudo nano /usr/share/phpmyadmin/.htaccess
+  
+  AuthType Basic
+AuthName "Restricted Files"
+AuthUserFile /etc/phpmyadmin/.htpasswd
+Require valid-user
+
+sudo apt-get install apache2-utils
+sudo htpasswd -c /etc/phpmyadmin/.htpasswd username
