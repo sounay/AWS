@@ -24,3 +24,15 @@ $cfg['Servers'][$i]['compress']      = FALSE;
 $cfg['Servers'][$i]['auth_type']     = 'config';
 $cfg['Servers'][$i]['user']          = '__FILL_IN_DETAILS__';
 $cfg['Servers'][$i]['password']      = '__FILL_IN_DETAILS__';
+
+
+
+############ REmove PHPmyadmin ############
+sudo apt-get purge phpmyadmin
+
+############# Change phpmyadmin URL #####
+sudo nano /etc/phpmyadmin/apache.conf
+Alias /whateveryouwant /usr/share/phpmyadmin
+
+##### Secure layer login for PHPMYADMIN ####
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-14-04
