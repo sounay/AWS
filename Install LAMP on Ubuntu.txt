@@ -17,3 +17,6 @@ Type Y to remove the anonymous user accounts.
 Type Y to disable remote root login.
 Type Y to remove the test database.
 Type Y to reload the privilege tables and save your changes.
+
+#stop MYSQL if not used
+sudo /etc/init.d/mysql stop
