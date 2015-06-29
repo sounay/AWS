@@ -90,23 +90,3 @@ Replace username and db name accordingly.
 
 
 
-[uwsgi]
-http=:3030
-socket=/tmp/onadata.sock
-chmod-socket=777
-uid=ubuntu
-gid=ubuntu
-chdir=/home/ubuntu/onadata
-module=onadata.apps.main.wsgi:application
-master=True
-processes=12
-pidfile=/var/run/ona.pid
-vacuum=True                 # clear environment on exit
-harakiri=120                 # respawn processes taking more than 2 minute
-max-requests=5000           # respawn processes after serving 5000 requests
-logto=/tmp/onadata.log
-virtualenv=/home/ubuntu/.virtualenvs/onadata
-static-map=/static=/home/ubuntu/onadata/onadata/static
-buffer-size=8192
-env=HTTPS=on
-stats=/tmp/onastats.sock
