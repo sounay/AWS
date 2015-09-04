@@ -1,0 +1,24 @@
+sudo crontab -e
+
+Examples
+Here is a list of examples for some common schedules you might encounter while configuring cron.
+
+To run a command every minute:
+
+* * * * *
+To run a command every 12th minute on the hour:
+
+12 * * * *
+You can also use different options for each placeholder. To run a command every 15 minutes:
+
+0,15,30,45 * * * *
+To run a command every day at 4:00am, you’d use:
+
+0 4 * * *
+To run a command every Tuesday at 4:00am, you’d use:
+
+0 4 * * 2
+You can use division in your schedule. Instead of listing out 0,15,30,45, you could also use the following:
+
+*/4 2-6 * * *
+Notice the “2-6” range. This syntax will run the command between the hours of 2:00am and 6:00am.
