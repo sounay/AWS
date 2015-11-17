@@ -1,3 +1,10 @@
+//Create mysql root password:
+//check what version first
+apt-cache policy mysql-server
+
+//Start MYSQL Reconfiguration 
+sudo dpkg-reconfigure mysql-server-5.5  
+
 mysql -u root -p
 CREATE USER 'wordpress-user'@'localhost' IDENTIFIED BY 'your_strong_password';
 CREATE DATABASE `wordpress-db`;
