@@ -1,0 +1,2 @@
+unzip file.zip -d destination_folder
+unzip file.zip
