@@ -1,0 +1,2 @@
+#Check Pots open
+sudo netstat -plunt
