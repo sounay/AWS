@@ -1,0 +1,3 @@
+//To reboot a server from the command line, run:
+
+sudo shutdown -r now
