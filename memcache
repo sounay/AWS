@@ -1,2 +1,6 @@
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-memcache-on-ubuntu-14-04
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-memcache-on-ubuntu-12-04
+
+sudo nano /etc/php5/apache2/php.ini
+#upload_max_filesize = change 2M to 20M
+sudo service apache2 restart
