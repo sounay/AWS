@@ -11,3 +11,12 @@ CREATE DATABASE `wordpress-db`;
 GRANT ALL PRIVILEGES ON `wordpress-db`.* TO "wordpress-user"@"localhost";
 FLUSH PRIVILEGES;
 exit
+
+#view mysql users
+SELECT User,Host FROM mysql.user;
+
+#remove users
+DROP USER 'testuser'@'localhost';
+
+#drop database
+mysqladmin -u root -p drop databasename
