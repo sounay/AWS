@@ -1,0 +1,13 @@
+#Config
+cd ~/enketo-express
+sudo nano ~/enketo-express/config/config.json
+
+#start Enketo
+cd ~/enketo-express
+pm2 start app.js -n enketo
+pm2 save
+sudo pm2 startup ubuntu -u enketo
+
+#Final configuration
+grunt
+pm2 restart enketo
