@@ -11,3 +11,5 @@ sudo pm2 startup ubuntu -u enketo
 #Final configuration
 grunt
 pm2 restart enketo
+
+sudo service nginx restart
