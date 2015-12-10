@@ -1,3 +1,6 @@
+	
+sudo apt-get install zip unzip
+
 zip -r myarchive.zip *
 unzip file.zip -d destination_folder
 unzip file.zip
