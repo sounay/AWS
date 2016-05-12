@@ -1,0 +1,8 @@
+https://www.traccar.org/secure-connection/
+
+./letsencrypt-auto --apache -d laogpscar.com -d www.laogpscar.com -d dashboard.laogpscar.com
+
+./letsencrypt-auto renew
+
+
+https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-14-04
