@@ -1,3 +1,6 @@
+Reset MYSQL root password
+http://wiki.vpslink.com/Change_MySQL_root_Password
+
 //Create mysql root password:
 //check what version first
 apt-cache policy mysql-server
