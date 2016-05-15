@@ -12,6 +12,7 @@ mysql -u root -p
 CREATE USER 'wordpress-user'@'localhost' IDENTIFIED BY 'your_strong_password';
 CREATE DATABASE `wordpress-db`;
 GRANT ALL PRIVILEGES ON `wordpress-db`.* TO "wordpress-user"@"localhost";
+//Grant to all // GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';     https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql
 FLUSH PRIVILEGES;
 exit
 
