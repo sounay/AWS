@@ -24,3 +24,6 @@ DROP USER 'testuser'@'localhost';
 
 #drop database
 mysqladmin -u root -p drop databasename
+
+#show databases
+show databases;
