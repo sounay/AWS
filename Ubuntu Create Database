@@ -23,7 +23,8 @@ SELECT User,Host FROM mysql.user;
 DROP USER 'testuser'@'localhost';
 
 #drop database
-mysqladmin -u root -p drop databasename
+DROP DATABASE tutorial_database;
+DROP DATABASE IF EXISTS tutorial_database;
 
 #show databases
 show databases;
