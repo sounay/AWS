@@ -1,1 +1,31 @@
 https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_rewrite-for-apache-on-ubuntu-14-04
+
+
+
+There can be multiple things preventing the rewrite rule from working. My ubuntu server needed 3 things changed to get permalinks working.
+
+In newer versions of apache2, you need to enable the module:
+
+sudo a2enmod rewrite
+sudo service apache2 restart
+You may also need to modify the apache2.conf file.
+
+sudo nano /etc/apache2/apache2.conf
+Change your web directory override rule to AllowOverride All.
+
+<Directory /var/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+After that, restart the service again.
+
+The .htaccess file in the WordPress install directory needs to be owned or readable/modifiable by the webserver.
+
+This can be accomplished by changing owner to www-data (usually the webserver user), or changing permissions.
+
+sudo chown www-data /var/www/wordpress-install/.htaccess 
+OR
+
+sudo chmod 664 /var/www/wordpress-install/.htaccess
+Login to your Wordpress admin backend and save the permalink settings, and they should hopefully be working.
