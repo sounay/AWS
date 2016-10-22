@@ -1,3 +1,5 @@
+https://www.ethernetservers.com/clients/knowledgebase/159/Running-a-ClamAV-and-Maldet-scan-on-cPanel-servers.html
+
 Running a ClamAV and Maldet scan on cPanel servers
 You may be familiar with ClamAV and Maldet (aka Linux Malware Detect). They're widely known as two excellent choices for identifying malware. What you may not realize, however, is that they can be used together. The benefit of doing this is a faster, more effective malware scan meaning you're more likely to identify potential threats. 
 
