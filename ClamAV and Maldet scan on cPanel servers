@@ -1,0 +1,78 @@
+Running a ClamAV and Maldet scan on cPanel servers
+You may be familiar with ClamAV and Maldet (aka Linux Malware Detect). They're widely known as two excellent choices for identifying malware. What you may not realize, however, is that they can be used together. The benefit of doing this is a faster, more effective malware scan meaning you're more likely to identify potential threats. 
+
+This tutorial is based around cPanel systems, and will require changes on other platforms.
+
+Installing ClamAV via WHM
+
+1) Login to WHM (Web Host Manager) as the root user
+2) Navigate to: Home » cPanel » Manage Plugins
+3) Tick the Install and keep updated box
+4) Click on Save
+
+Installing ClamAV via SSH
+
+This command tells the system that we want ClamAV to be listed as installed by the local RPM system:
+
+
+/scripts/update_local_rpm_versions --edit target_settings.clamav installed
+
+
+This command is the one responsible for installing the ClamAV RPM on your server:
+
+
+/scripts/check_cpanel_rpms --fix --targets=clamav
+
+Installing Maldet
+
+1) Login to SSH as the root user
+2) Execute the below commands:
+
+cd /usr/local/src/
+wget http://www.rfxn.com/downloads/maldetect-current.tar.gz
+tar -xzf maldetect-current.tar.gz
+cd maldetect-*
+sh ./install.sh
+
+Linking the two together
+
+If you were to run a Linux Malware Detect scan now, it would run with no problem, however, it would not include ClamAV's definitions, therefore slowing down the scan completion time and threat detection ratio. To solve this, we must create two symbolic links, as follows:
+
+ln -s /usr/local/cpanel/3rdparty/bin/clamscan /usr/local/bin/clamscan
+ln -s /usr/local/cpanel/3rdparty/bin/freshclam /usr/local/bin/freshclam
+
+Updating the applications
+
+Let's ensure both applications are up-to-date now:
+
+maldet -d
+maldet -u
+freshclam
+
+Running a malware scan
+
+Now, when you run a Maldet scan, you'll have the best of both worlds (think of it as ClamAV and Linux Malware Detect teaming up). Say you wanted to run a malware scan of /home, you could do so with:
+
+maldet -a /home/?
+
+The above command will scan all files and directories within the /home directory, which is where the content for cPanel accounts is stored. 
+
+Below is a sample output of what you should see:
+
+
+root@server [~]# maldet -a /home/?
+Linux Malware Detect v1.4.2
+            (C) 2002-2013, R-fx Networks <proj@r-fx.org>
+            (C) 2013, Ryan MacDonald <ryan@r-fx.org>
+inotifywait (C) 2007, Rohan McGovern <rohan@mcgovern.id.au>
+This program may be freely redistributed under the terms of the GNU GPL v2
+
+maldet(5196): {scan} signatures loaded: 10727 (8823 MD5 / 1904 HEX)
+maldet(5196): {scan} building file list for /home/*, this might take awhile...
+maldet(5196): {scan} file list completed, found 14974 files...
+maldet(5196): {scan} found ClamAV clamscan binary, using as scanner engine...
+maldet(5196): {scan} scan of /home/* (14974 files) in progress...
+
+maldet(5196): {scan} scan completed on /home/*: files 14974, malware hits 0, cleaned hits 0
+maldet(5196): {scan} scan report saved, to view run: maldet --report 031515-1147.5196
+root@server [~]#
