@@ -1,0 +1,19 @@
+https://www.siteground.com/tutorials/ssh/ssh_deleting.htm
+
+Sometimes you would need to remove a file or a folder from the system. To do so using SSH, you would need to execute the appropriate command – rm.
+
+The command in its simpliest form looks like:
+
+rm myFile.txt myFile1.txt myFile2.txt …etc…
+You would notice however that listing all files/folders that need to be deleted can be quite time consuming. Fortunately, rm accepts several arguments which can ease us. In the above example, we could type:
+
+rm myFile*.txt
+This will match all files starting with ‘myFile’ and ending in ‘.txt’
+
+To delete a whole folder and its content recursively, you can use:
+
+rm -rf foldername/
+To delete all files/folders in the current directory, without deleting the directory itself, you would need to use:
+
+rm -rf *
+Please be very careful when using rm command, as it might have devastating effects on your website/server, should you delete a system file or a folder.
