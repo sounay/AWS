@@ -27,3 +27,7 @@ Login to your VPS via SSH and issue this magic command;
 dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync
 
 
+#CHeck File Size in curremt folder
+du -h
+
+
