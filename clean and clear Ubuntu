@@ -1,0 +1,29 @@
+
+http://askubuntu.com/questions/5980/how-do-i-free-up-disk-space
+
+To delete downloaded packages (.deb) already installed (and no longer needed)
+
+sudo apt-get clean
+To remove all stored archives in your cache for packages that can not be downloaded anymore (thus packages that are no longer in the repository or that have a newer version in the repository).
+
+sudo apt-get autoclean
+To remove unnecessary packages (After uninstalling an app there could be packages you don't need anymore)
+
+sudo apt-get autoremove
+To delete old kernel versions
+
+sudo apt-get remove --purge linux-image-X.X.XX-XX-generic
+If you don't know which kernel version to remove
+
+dpkg --get-selections | grep linux-image
+
+
+
+http://www.servermom.org/check-disk-performance-io-speed-server/
+HOW TO TEST DISK SPEED (I/O)
+
+Login to your VPS via SSH and issue this magic command;
+
+dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync
+
+
