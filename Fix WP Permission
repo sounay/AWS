@@ -1,0 +1,5 @@
+https://gist.github.com/Adirael/3383404
+
+
+Run
+./fix-wordpress-permissions.sh /home/user/public_html
