@@ -53,3 +53,25 @@ Require valid-user
 
 sudo apt-get install apache2-utils
 sudo htpasswd -c /etc/phpmyadmin/.htpasswd username
+
+
+
+/////////UPGRADE MYSQL TO 5.6////////////
+step 1 : take a backup
+
+mysqldump --lock-all-tables -u root -p --all-databases > dump.sql
+
+step 2 : remove old mysql
+
+sudo apt-get remove mysql-server
+sudo apt-get autoremove
+
+step 3 : install new version of mysql
+
+sudo apt-get install mysql-client-5.6 mysql-client-core-5.6
+
+sudo apt-get install mysql-server-5.6
+
+step 4 : restore your data
+
+mysql -u root -p < dump.sql
