@@ -1,0 +1,16 @@
+Solution for LINUX USERS (run with sudo)
+
+Create 'upload' and 'save' directories:
+
+mkdir /etc/phpmyadmin/upload
+mkdir /etc/phpmyadmin/save
+chmod a+w /etc/phpmyadmin/upload
+chmod a+w /etc/phpmyadmin/save
+Then edit phpmyadmin's config file:
+
+gedit /etc/phpmyadmin/config.inc.php
+Finally add absolute path for both 'upload' and 'save' directories:
+
+$cfg['UploadDir'] = '/etc/phpmyadmin/upload';
+$cfg['SaveDir'] = '/etc/phpmyadmin/save';
+Now, just drop files on /etc/phpmyadmin/upload folder and then you'll be able to select them from phpmyadmin.
