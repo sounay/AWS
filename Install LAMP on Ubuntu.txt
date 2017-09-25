@@ -43,5 +43,9 @@ $sudo php5enmod mcrypt
 sudo apt-get install curl
 sudo service apache2 restart
 sudo apt-get install php5-curl
-sudo service apache2 restart Done!
+sudo service apache2 restart 
+
+///// Enable SMTP /////
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-setup-postfix-on-ubuntu-14-04
 
