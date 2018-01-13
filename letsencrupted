@@ -6,3 +6,8 @@ https://www.traccar.org/secure-connection/
 
 
 https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-14-04
+
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-apache
+certbot --authenticator standalone --installer apache -d example.com --pre-hook "apachectl stop" --post-hook "apachectl start"
