@@ -10,6 +10,13 @@ nano /etc/apache2/sites-enabled/000-default.conf
 --ADD LINE-- 
 Include /etc/phpmyadmin/apache.conf
 
+----------------------------------------
+new method 2018
+sudo nano /etc/apache2/apache2.conf
+Include /etc/phpmyadmin/apache.conf
+sudo service apache2 restart
+------------------------------------------
+
 service apache2 restart
 
 nano /etc/phpmyadmin/config.inc.php
