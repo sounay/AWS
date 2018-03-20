@@ -1,0 +1,74 @@
+#Upgrade Ubuntu to Ver 16
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+sudo apt-get install update-manager-core
+sudo do-release-upgrade
+
+#Database Backup
+mysqldump -u username -p database_to_backup > backup_name.sql
+mysql -u username -p database_name < backup_name.sql
+
+#Apache test
+sudo apache2ctl configtest
+sudo systemctl restart apache2
+
+#MYSQL 
+mysql_secure_installation
+
+#SSH Key
+ssh-keygen -R ""
+
+#Upgrade to PHP7
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install php7.0
+sudo apt-get install php7.0-mysql
+sudo apt-get install php7.0-fpm
+sudo apt-get install php7.0-mysql
+
+####Install MySQL 5.6 in Ubuntu 16.04
+
+dpkg -l | grep mysql
+apt-get purge <package name>
+
+sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-5.7 mysql-client-core-5.7
+sudo rm -rf /etc/mysql /var/lib/mysql
+sudo apt-get autoremove
+sudo apt-get autoclean
+
+sudo wget https://repo.mysql.com/mysql-apt-config_0.7.2-1_all.deb
+dpkg -i mysql-apt-config_0.7.2-1_all.deb
+apt-cache policy mysql-server 
+sudo nano /etc/apt/sources.list.d/mysql.list
+
+### THIS FILE IS AUTOMATICALLY CONFIGURED ###
+# You may comment out entries below, but any other modifications may be lost.
+# Use command 'dpkg-reconfigure mysql-apt-config' as root for modifications.
+deb http://repo.mysql.com/apt/ubuntu/ truty mysql-apt-config
+deb http://repo.mysql.com/apt/ubuntu/ trusy mysql-5.6
+deb http://repo.mysql.com/apt//ubuntu/ trusty mysql-tools
+deb-src http://repo.mysql.com/apt/ubuntu/ trust mysql-5.6
+
+sudo nano /etc/apt/preferences.d/mysql
+Package: *
+Pin: origin "repo.mysql.com"
+Pin-Priority: 999
+
+apt update
+
+apt install mysql-client mysql-server libmysqlclient-dev
+
+
+## Install phpMyAdmin
+sudo apt-get update
+sudo apt-get install phpmyadmin php-mbstring php-gettext
+sudo phpenmod mcrypt
+sudo phpenmod mbstring
+sudo systemctl restart apache2
+sudo nano /etc/apache2/conf-available/phpmyadmin.conf
+
+<Directory /usr/share/phpmyadmin>
+    Options FollowSymLinks
+    DirectoryIndex index.php
+    AllowOverride All
