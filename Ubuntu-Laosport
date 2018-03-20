@@ -72,3 +72,12 @@ sudo nano /etc/apache2/conf-available/phpmyadmin.conf
     Options FollowSymLinks
     DirectoryIndex index.php
     AllowOverride All
+
+## MYSQL PHPMYADMIN UPLOAD
+mkdir /etc/phpmyadmin/upload
+mkdir /etc/phpmyadmin/save
+chmod a+w /etc/phpmyadmin/upload
+chmod a+w /etc/phpmyadmin/save
+sudo nano /etc/phpmyadmin/config.inc.php
+$cfg['UploadDir'] = '/etc/phpmyadmin/upload';
+$cfg['SaveDir'] = '/etc/phpmyadmin/save';
