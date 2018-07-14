@@ -53,6 +53,9 @@ docker-compose exec service odk-cmd --email YOUREMAIL@ADDRESSHERE.com user-promo
 ###Reset Password
 docker-compose exec service odk-cmd --email YOUREMAIL@ADDRESSHERE.com user-set-password
 
+####IMPORTANT### restart in order to run
+systemctl restart docker-compose@central
+
 ###Upgrading ODK Central
 cd central
 git pull
