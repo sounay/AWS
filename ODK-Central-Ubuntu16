@@ -2,17 +2,6 @@
 apt-get install nano
 
 
-
-#####Installing ODK Central Ubuntu 16 @https://github.com/opendatakit/central
-
-git clone https://github.com/opendatakit/central
-git submodule update -i
-cd central
-sudo nano .env
-SSL_TYPE
-SSLDOMAIN
-SSLEMAIL
-
 -------------------------
 ###Install Docker @https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -31,6 +20,19 @@ sudo docker info
 curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 --------------------------------------------
+
+
+#####Installing ODK Central Ubuntu 16 @https://github.com/opendatakit/central
+
+git clone https://github.com/opendatakit/central
+cd central
+git submodule update -i
+sudo nano .env
+SSL_TYPE
+SSLDOMAIN
+SSLEMAIL
+
+
 
 
 docker-compose build
