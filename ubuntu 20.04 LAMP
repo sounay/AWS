@@ -25,6 +25,12 @@ sudo nano /etc/apache2/sites-available/000-default.conf
 Include /etc/phpmyadmin/apache.conf
 sudo systemctl reload apache2
 
+
+CREATE USER 'ubuntu'@'localhost' IDENTIFIED BY 'PZM34JW8bPRH';
+ GRANT ALL PRIVILEGES ON *.* TO 'ubuntu'@'localhost';
+ FLUSH PRIVILEGES;
+
+
 sudo nano /etc/phpmyadmin/config.inc.php
 $i++;
 $cfg['Servers'][$i]['host']          = 'localhost';
@@ -36,3 +42,28 @@ $cfg['Servers'][$i]['compress']      = FALSE;
 $cfg['Servers'][$i]['auth_type']     = 'config';
 $cfg['Servers'][$i]['user']          = 'root';
 $cfg['Servers'][$i]['password']      = 'PZM34JW8bPRH';
+
+
+sudo apt install certbot python3-certbot-apache
+sudo nano /etc/apache2/sites-available/default-ssl.conf
+ServerName otrustla.com
+ServerAlias www.otrustla.com
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+sudo ufw status
+sudo ufw allow 'Apache Full'
+sudo ufw delete allow 'Apache'
+sudo ufw status
+
+sudo certbot renew --dry-run
+
+
+#permit root level for ssh
+sudo nano /etc/ssh/sshd_config
+
+#PermitRootLogin prohibit-password
+TO:
+PermitRootLogin yes
+
+sudo systemctl restart ssh
+
