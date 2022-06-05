@@ -14,16 +14,25 @@ sudo systemctl start mysql.service
 sudo apt install php libapache2-mod-php php-mysql
 php -v
 
-sudo nano /etc/apache2/sites-available/000-default.conf
-<VirtualHost *:80>
-    ServerName your_domain
-    ServerAlias www.your_domain 
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/your_domain
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
 
-sudo a2dissite 000-default
-sudo apache2ctl configtest
+sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl
+sudo phpenmod mbstring
+sudo systemctl restart apache2
+
+
+sudo nano /etc/apache2/sites-available/000-default.conf
+--ADD LINE-- 
+Include /etc/phpmyadmin/apache.conf
 sudo systemctl reload apache2
+
+sudo nano /etc/phpmyadmin/config.inc.php
+$i++;
+$cfg['Servers'][$i]['host']          = 'localhost';
+$cfg['Servers'][$i]['port']          = '3306';
+$cfg['Servers'][$i]['socket']        = '';
+$cfg['Servers'][$i]['connect_type']  = 'tcp';
+$cfg['Servers'][$i]['extension']     = 'mysql';
+$cfg['Servers'][$i]['compress']      = FALSE;
+$cfg['Servers'][$i]['auth_type']     = 'config';
+$cfg['Servers'][$i]['user']          = 'root';
+$cfg['Servers'][$i]['password']      = 'PZM34JW8bPRH';
