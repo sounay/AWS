@@ -1,0 +1,29 @@
+sudo apt update
+sudo apt upgrade
+
+sudo apt install -y apache2 apache2-utils
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+
+sudo apt install mysql-server
+sudo systemctl start mysql.service
+sudo systemctl start mysql.service
+
+
+sudo apt install php libapache2-mod-php php-mysql
+php -v
+
+sudo nano /etc/apache2/sites-available/000-default.conf
+<VirtualHost *:80>
+    ServerName your_domain
+    ServerAlias www.your_domain 
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/your_domain
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+sudo a2dissite 000-default
+sudo apache2ctl configtest
+sudo systemctl reload apache2
