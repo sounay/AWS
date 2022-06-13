@@ -1,0 +1,9 @@
+sudo apt install docker.io
+
+sudo systemctl status docker
+
+sudo docker pull honeygain/honeygain
+
+sudo docker run honeygain/honeygain -tou-get
+
+sudo docker run honeygain/honeygain -tou-accept -email ACCOUNT_EMAIL -pass ACCOUNT_PASSWORD -device DEVICE_NAME
