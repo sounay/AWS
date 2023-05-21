@@ -4,42 +4,17 @@ tar -xzvf latest.tar.gz
 mv wordpress/* ./
 rm -rf wordpress/
 
-#make ownership
-sudo chown -R ubuntu:www-data *
 
-mkdir /var/www/html/wp-content/uploads
+# reset to safe defaults
+find /var/www/html -exec chown www-data:www-data {} \;
+find /var/www/html -type d -exec chmod 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
 
+# allow wordpress to manage wp-config.php (but prevent world access)
+chgrp www-data /var/www/html/wp-config.php
+chmod 660 /var/www/html/wp-config.php
 
-sudo nano /etc/apache2/sites-available/000-default.conf
-
-<VirtualHost *:80>
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html
-    ServerName server_domain_name_or_IP
-    <Directory /var/www/html/>
-        AllowOverride All
-    </Directory>
-    . . .
-    
-    
-    
-sudo a2enmod rewrite
-sudo service apache2 restart
-touch /var/www/html/.htaccess
-
-
-
-sudo chown :www-data /var/www/html/.htaccess
-chmod 664 /var/www/html/.htaccess
-
-sudo chown -R www-data /var/www
-
-sudo nano /etc/php5/apache2/php.ini
-#upload_max_filesize = change 2M to 20M
-sudo service apache2 restart
-
-#themes folder permission denied
-sudo chmod -R 777 /var/www/html/wp-content/themes
-#change folder name
-mv pursuit eullo
-
+# allow wordpress to manage wp-content
+find /var/www/html/wp-content -exec chgrp www-data {} \;
+find /var/www/html/wp-content -type d -exec chmod 775 {} \;
+find /var/www/html/wp-content -type f -exec chmod 664 {} \;
